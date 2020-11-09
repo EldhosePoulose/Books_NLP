@@ -38,14 +38,19 @@ get_ISBN= function(booksURL){
 get_bookSize= function(booksURL){
   #booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
   booksPage= read_html(booksURL)
+  print("reading NPage")
   bookSize= booksURL %>% read_html(.) %>% html_nodes("#details span~ span+ span") %>% html_text()
-  if(!(grepl("pages",bookSize))){
+  print(bookSize)
+  if(length(bookSize)!=0){
+    if(!(grepl("pages",bookSize))){
     bookSize= booksURL %>% read_html(.) %>% html_nodes("#details .row span+ span") %>% html_text() 
+    print(bookSize)
+    }
   }
   if(length(bookSize)==0){
-    bookSize= booksURL %>% read_html(.) %>% html_nodes("#details .row span+ span") %>% html_text() 
+    bookSize= booksURL %>% read_html(.) %>% html_nodes("#details .row span+ span") %>% html_text()
+    print(bookSize)
   }
-  #OR
   #booksURL %>% read_html(.) %>% html_nodes("#details .row:nth-child(1) span~ span~ span") %>% html_text()
   return(bookSize)
 }
@@ -121,7 +126,7 @@ for(page_result in seq(from=1, to=2, by=1)) {
   PubYear= sapply(booksURL, FUN= get_PubYear, USE.NAMES = FALSE)
   Nreviews= sapply(booksURL, FUN= get_Nreviews, USE.NAMES = FALSE)
 
-  
+
   #52995
   Language= as.character(Language)
   NPages= as.character(NPages)
@@ -129,7 +134,7 @@ for(page_result in seq(from=1, to=2, by=1)) {
   #page1
   bestBooksEver1= rbind(bestBooksEver,data.frame(Titles,Author,ISBN,NPages,PubYear,Language,Characters,Score,CurrentVotes,Ratings,Nreviews,booksURL,stringsAsFactors = FALSE))
   #View(bestBooksEver1)
-  #write.csv(bestBooksEver1, "bestBooksEverGoodReads.csv")
+  # write.csv(bestBooksEver1, "bestBooksEverGoodReads.csv")
   print(paste("page:", page_result))
 }
 
