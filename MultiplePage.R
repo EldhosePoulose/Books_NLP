@@ -19,7 +19,8 @@ library(dplyr)
 
 # Function 1: For Collecting Description of each book
 get_desc= function(booksURL){
-  # booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
+  #booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
+  print(booksURL)
   booksPage= read_html(booksURL)
   bookDescription= booksURL %>% read_html(.) %>% html_node("#description span+ span") %>% html_text()
   #booksURL %>% read_html(.) %>% html_node("#description span") %>% html_text() #for less
@@ -29,6 +30,7 @@ get_desc= function(booksURL){
 # Function 2: For Collecting ISBN of each book
 get_ISBN= function(booksURL){
   #booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
+  print(booksURL)
   booksPage= read_html(booksURL)
   bookISBN= booksURL %>% read_html(.) %>% html_node("#bookDataBox .clearFloats .infoBoxRowItem .greyText") %>% html_text()
   return(bookISBN)
@@ -37,19 +39,20 @@ get_ISBN= function(booksURL){
 # Function 3: For Collecting the number of pages of each book
 get_bookSize= function(booksURL){
   #booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
+  print(booksURL)
   booksPage= read_html(booksURL)
   print("reading NPage")
   bookSize= booksURL %>% read_html(.) %>% html_nodes("#details span~ span+ span") %>% html_text()
-  print(bookSize)
+  #print(bookSize)
   if(length(bookSize)!=0){
     if(!(grepl("pages",bookSize))){
     bookSize= booksURL %>% read_html(.) %>% html_nodes("#details .row span+ span") %>% html_text() 
-    print(bookSize)
+    #print(bookSize)
     }
   }
   if(length(bookSize)==0){
     bookSize= booksURL %>% read_html(.) %>% html_nodes("#details .row span+ span") %>% html_text()
-    print(bookSize)
+    #print(bookSize)
   }
   #booksURL %>% read_html(.) %>% html_nodes("#details .row:nth-child(1) span~ span~ span") %>% html_text()
   return(bookSize)
@@ -57,7 +60,8 @@ get_bookSize= function(booksURL){
 
 # Function 4: For Collecting Language of each book
 get_Language= function(booksURL){
-  booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
+  #booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
+  print(booksURL)
   booksPage= read_html(booksURL)
   LanList=c("Arabic","Bosnian","Bulgarian","Catalan; Valencian","Croatian","Czech","Danish","Dutch","Elamite","English","English, Old (ca.450-1100)",
             "Estonian","Finnish","Galician","Georgian","Greek, Modern (1453-)","Gujarati","Hindi","Hungarian","Icelandic",
@@ -71,6 +75,7 @@ get_Language= function(booksURL){
 # Function 5: For Collecting Characters/Actors of each book
 get_Characters= function(booksURL){
   #booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
+  print(booksURL)
   booksPage= read_html(booksURL)
   Characters= booksURL %>% read_html(.) %>% html_nodes(".clearFloats:nth-child(5) .infoBoxRowItem") %>% html_text() %>% paste(collapse = ",")
   return(Characters)
@@ -79,6 +84,7 @@ get_Characters= function(booksURL){
 # Function 6: Publishing year info
 get_PubYear= function(booksURL){
   #booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
+  print(booksURL)
   booksPage= read_html(booksURL)
   PubYear= booksURL %>% read_html(.) %>% html_nodes(".row+ .row") %>% html_text()
   return(PubYear)
@@ -87,6 +93,7 @@ get_PubYear= function(booksURL){
 # Function 7: Number of Reviews 
 get_Nreviews= function(booksURL){
   #booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
+  print(booksURL)
   booksPage= read_html(booksURL)
   Nreviews= booksURL %>% read_html(.) %>% html_node(".reviewControls--left.greyText") %>% html_text()
   return(Nreviews)
@@ -98,7 +105,7 @@ url= "https://www.goodreads.com/list/show/1.Best_Books_Ever?page="
 bestBooksEver= data.frame()
 
 
-for(page_result in seq(from=1, to=2, by=1)) {
+for(page_result in seq(from=1, to=530, by=1)) {
   #Timer
   old=  Sys.time()
   
@@ -122,12 +129,19 @@ for(page_result in seq(from=1, to=2, by=1)) {
   
   print("Starting with Function Calling")
   Description= sapply(booksURL, FUN= get_desc, USE.NAMES = FALSE)
+  print("Finished with Description Scraping")
   ISBN= sapply(booksURL, FUN= get_ISBN, USE.NAMES = FALSE)
+  print("Finished with ISBN Scraping")
   NPages= sapply(booksURL, FUN= get_bookSize, USE.NAMES = FALSE)
+  print("Finished with NPage Scraping")
   Language= sapply(booksURL, FUN= get_Language, USE.NAMES = FALSE)
+  print("Finished with Language Scraping")
   Characters= sapply(booksURL, FUN= get_Characters, USE.NAMES = FALSE)
+  print("Finished with Character Scraping")
   PubYear= sapply(booksURL, FUN= get_PubYear, USE.NAMES = FALSE)
+  print("Finished with PubYear Scraping")
   Nreviews= sapply(booksURL, FUN= get_Nreviews, USE.NAMES = FALSE)
+  print("Finished with Nreviews Scraping")
 
 
   #52995
@@ -136,14 +150,13 @@ for(page_result in seq(from=1, to=2, by=1)) {
   PubYear= as.character(PubYear)
   #page1
   bestBooksEver1= rbind(bestBooksEver,data.frame(Titles,Author,ISBN,NPages,PubYear,Language,Characters,Score,CurrentVotes,Ratings,Nreviews,booksURL,stringsAsFactors = FALSE))
-  #View(bestBooksEver1)
-  # write.csv(bestBooksEver1, "bestBooksEverGoodReads.csv")
   print(paste("page:", page_result))
   new=  Sys.time()-old
   print(new)
 }
 
-
+#View(bestBooksEver1)
+# write.csv(bestBooksEver1, "bestBooksEverGoodReads.csv")
 
 
 
