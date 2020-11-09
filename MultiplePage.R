@@ -99,6 +99,9 @@ bestBooksEver= data.frame()
 
 
 for(page_result in seq(from=1, to=2, by=1)) {
+  #Timer
+  old=  Sys.time()
+  
   url1= paste0(url,page_result)
   page= read_html(url1)
   print(url1)
@@ -136,6 +139,8 @@ for(page_result in seq(from=1, to=2, by=1)) {
   #View(bestBooksEver1)
   # write.csv(bestBooksEver1, "bestBooksEverGoodReads.csv")
   print(paste("page:", page_result))
+  new=  Sys.time()-old
+  print(new)
 }
 
 
