@@ -54,10 +54,10 @@ get_bookSize= function(booksURL){
   #booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
   booksPage= read_html(booksURL)
   bookSize= booksURL %>% read_html(.) %>% html_nodes("#details span~ span+ span") %>% html_text()
-  if(length(bookSize)==0){
+  if(!(grepl("pages",bookSize))){
     bookSize= booksURL %>% read_html(.) %>% html_nodes("#details .row span+ span") %>% html_text() 
   }
-  if(!(grepl("pages",bookSize))){
+  if(length(bookSize)==0){
     bookSize= booksURL %>% read_html(.) %>% html_nodes("#details .row span+ span") %>% html_text() 
   }
   #OR
