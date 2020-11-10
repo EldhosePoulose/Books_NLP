@@ -1,10 +1,10 @@
 **Task:** Text Analysis using Goodreads.com <br/>
 **Data:** Goodreads.com <br/>
 **Goal:** Collect Best Books ever data (52995 book details) <br/>
-**Future:** Reach 1 Million book data
+**Future:** Reach 1 Million book data <br/>
 **Language:** R  <br/>
 **Packages:** rvest, dplyr <br/>
-**Credits:** 
+**Credits:** Youtube Channels: Data science dojo, dataslice
 
 
 
