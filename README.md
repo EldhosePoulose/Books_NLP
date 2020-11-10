@@ -4,7 +4,6 @@
 **Future:** Reach 1 Million book data <br/>
 **Language:** R  <br/>
 **Packages:** rvest, dplyr <br/>
-**Credits:** Youtube Channels: Data science dojo, dataslice
 
 
 Milestones:<br/>
