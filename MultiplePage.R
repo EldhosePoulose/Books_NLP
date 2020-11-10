@@ -58,10 +58,10 @@ get_bookSize= function(booksURL){
   return(bookSize)
 }
 
+
 # Function 4: For Collecting Language of each book
 get_Language= function(booksURL){
-  #booksURL="https://www.goodreads.com/book/show/2767052-the-hunger-games" # for testing
-  booksURL="https://www.goodreads.com/book/show/1423.The_Compleat_Works_of_Wllm_Shkspr"
+  #booksURL="https://www.goodreads.com/book/show/1423.The_Compleat_Works_of_Wllm_Shkspr"# for testing
   print(booksURL)
   booksPage= read_html(booksURL)
   LanList=c("Arabic","Bosnian","Bulgarian","Catalan; Valencian","Croatian","Czech","Danish","Dutch","Elamite","English","English, Old (ca.450-1100)",
@@ -111,7 +111,7 @@ get_Nreviews= function(booksURL){
 url= "https://www.goodreads.com/list/show/1.Best_Books_Ever?page="
 bestBooksEver= data.frame()
 
-
+#Test
 for(page_result in seq(from=1, to=530, by=1)) {
   #Timer
   old=  Sys.time()
@@ -164,8 +164,6 @@ for(page_result in seq(from=1, to=530, by=1)) {
 
 #View(bestBooksEver1)
 # write.csv(bestBooksEver1, "bestBooksEverGoodReads.csv")
-
-
 
 
 
