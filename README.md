@@ -7,8 +7,6 @@
 **Credits:** Youtube Channels: Data science dojo, dataslice
 
 
-
-
 Milestones:<br/>
 
 **1. Data Collection:** Package/Method: rvest,dplyr <br/>
