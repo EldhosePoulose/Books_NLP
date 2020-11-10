@@ -13,4 +13,4 @@ Milestones:<br/>
 **2. Filter:** Package/Method:  <br/>
 **3. Analysis:** Package/Method:  <br/>
 **4. Send result/error as an Email Alert:** Package: sendmailR or mailR <br/>
-**5. Schedule the RUN:** Package: Automator or teskscheduleR <br/>
+**5. Schedule the RUN:** Package: cronR or taskscheduleR <br/>
